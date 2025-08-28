@@ -4,6 +4,7 @@ from flask_caching  import Cache
 from dotenv import load_dotenv
 import json
 import requests
+import time
 
 
 app=Flask(__name__)
@@ -11,12 +12,12 @@ load_dotenv()
 
 
 config={
-    'catche_type','SimpleCatche',
-    'catche_default_timeout',300
+    'CACHE_TYPE':'SimpleCache',
+    'CACHE_DEFAULT_TIMEOUT':300
 }
 
 app.config.from_mapping(config)
-catche=Cache(app)
+cache=Cache(app)
 
 
 weather_API_key = os.getenv("weatherAPIKey")
@@ -28,7 +29,6 @@ else:
 
 cityCodesArray = []
 
-#@cache.cached(timeout=300, key_prefix='weather_data')
 def  extractCityCode():
     with open('C:\\Users\\THIS PC\\Desktop\\fidenztechnologies(Assignment)\\Weather-Information-Web-API-Application\\backend\\cities.json','r') as file:
         data=json.load(file)
@@ -41,6 +41,7 @@ def  extractCityCode():
 
 
 @app.route("/weather", methods=["GET"])
+@cache.cached(timeout=300)
 def retrieve_weather_data():
     cityCodes=extractCityCode()
     print(cityCodes)
