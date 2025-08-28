@@ -4,7 +4,6 @@ from flask_caching  import Cache
 from dotenv import load_dotenv
 import json
 import requests
-import time
 
 
 app=Flask(__name__)
@@ -61,12 +60,6 @@ def retrieve_weather_data():
         return jsonify(weather_data_array)   
      except:
          return jsonify("Failing to  fetch the data")
-        
-
-
-     
-
-
 
 
 if __name__=='__main__':
