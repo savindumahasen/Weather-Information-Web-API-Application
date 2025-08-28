@@ -46,6 +46,7 @@ def  extractCityCode():
 
 ## define the route
 @app.route("/weather", methods=["GET"])
+## implement the caching
 @cache.cached(timeout=300)
 def retrieve_weather_data():
     cityCodes=extractCityCode()
