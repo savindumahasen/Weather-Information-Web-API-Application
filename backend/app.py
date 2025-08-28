@@ -10,6 +10,13 @@ import requests
 #load_dotenv()
 
 
+config={
+    'catche_type','SimpleCatche',
+    'catche_default_timeout',300
+}
+
+
+
 #weather_API_key = os.getenv("weatherAPIKey")
 
 #if weather_API_key:
