@@ -6,8 +6,8 @@ import json
 import requests
 
 
-#app=Flask(__name__)
-#load_dotenv()
+app=Flask(__name__)
+load_dotenv()
 
 
 config={
@@ -15,6 +15,8 @@ config={
     'catche_default_timeout',300
 }
 
+app.config.from_mapping(config)
+catche=Cache(app)
 
 
 #weather_API_key = os.getenv("weatherAPIKey")
