@@ -2,6 +2,7 @@ import os
 from flask import Flask,jsonify
 from dotenv import load_dotenv
 import json
+import requests
 
 
 app=Flask(__name__)
@@ -36,9 +37,20 @@ def retrieve_weather_data():
     if not cityCodes:
         return jsonify("cityCodes  parameter is empty")
     else:
+     try:
+        weather_data_array=[]
         for city_id in cityCodes:
-            url=f"https://api.openweathermap.org/data/2.5/weather?id={city_id}&units=metric&appid=weather_API_key"
-    
+            url=f"https://api.openweathermap.org/data/2.5/weather?id={city_id}&units=metric&appid={weather_API_key}"
+            response=requests.get(url)
+            weather_data=response.json()
+            print(weather_data)
+            weather_data_array.append(weather_data)
+        print(weather_data_array)
+        return jsonify(weather_data_array)   
+     except:
+         return jsonify("Failing to  fetch the data")
+        
+
 
      
 
