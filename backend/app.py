@@ -15,7 +15,7 @@ load_dotenv()
 ## Config the cache
 config={
     'CACHE_TYPE':'SimpleCache',
-    'CACHE_DEFAULT_TIMEOUT':300
+    'CACHE_DEFAULT_TIMEOUT':300       ## 5 minutes =300 seconds
 }
 
 app.config.from_mapping(config)
@@ -43,6 +43,11 @@ def  extractCityCode():
             cityCodesArray.append(city_codes)
     print(cityCodesArray)
     return cityCodesArray
+
+
+@app.route("/")
+def home():
+    return 
 
 ## define the route
 @app.route("/weather", methods=["GET"])
