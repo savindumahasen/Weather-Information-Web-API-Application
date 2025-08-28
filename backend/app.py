@@ -9,7 +9,7 @@ import requests
 
 app=Flask(__name__)
 
-## load the .enf file values into environment variables
+## load the variables from .env file  into environment variables
 load_dotenv()
 
 ## Config the cache
