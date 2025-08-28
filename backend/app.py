@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from dotenv import load_dotenv
+import json
 
 
 app=Flask(__name__)
@@ -15,7 +16,10 @@ else:
     print("Api key is not loaded successfully")
 
 
-
+with open('C:\\Users\\THIS PC\\Desktop\\fidenztechnologies(Assignment)\\Weather-Information-Web-API-Application\\backend\\cities.json','r') as file:
+    data=json.load(file)
+    print(data)
+     
 
 
 
