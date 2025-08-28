@@ -18,7 +18,9 @@ else:
 
 with open('C:\\Users\\THIS PC\\Desktop\\fidenztechnologies(Assignment)\\Weather-Information-Web-API-Application\\backend\\cities.json','r') as file:
     data=json.load(file)
-    print(data)
+    for city_ids in data['List']:
+        city_codes=city_ids['CityCode']
+        print(city_codes)
      
 
 
