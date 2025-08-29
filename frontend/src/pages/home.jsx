@@ -8,8 +8,12 @@ const Home = () => {
     const [isHovered, setIsHovered] = useState(false);
 
 
-    const handleGetStarted = () => {
+    const handleGetUser = () => {
         navigate('/register');
+    };
+    const handleGetAdmin = ()=> {
+        navigate('/admin');
+
     };
 
     const handleLearnMore = () => {
@@ -31,11 +35,20 @@ const Home = () => {
                     <div className="button-group">
                         <button 
                             className="main-btn"
-                            onClick={handleGetStarted}
+                            onClick={handleGetUser}
                             onMouseEnter={() => setIsHovered(true)}
                             onMouseLeave={() => setIsHovered(false)}
                         >
-                            Check Weather
+                            User SignUp
+                            {isHovered && <span className="arrow"> →</span>}
+                        </button>
+                         <button 
+                            className="main-btn"
+                            onClick={handleGetAdmin}
+                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseLeave={() => setIsHovered(false)}
+                        >
+                            Admin Login
                             {isHovered && <span className="arrow"> →</span>}
                         </button>
                     </div>

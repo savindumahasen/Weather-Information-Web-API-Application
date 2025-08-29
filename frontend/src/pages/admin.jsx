@@ -1,16 +1,15 @@
-// src/components/Login.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import './login.css';
+import './admin.css';
 
-const Login = () => {
+const AdminLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    // Get token from sessionStorage on component mount
     useEffect(() => {
         const storedToken = sessionStorage.getItem("token");
         if (storedToken) {
@@ -19,13 +18,15 @@ const Login = () => {
     }, []);
 
     const handleSubmit = (e) => {
-        e.preventDefault(); // Prevent form refresh
-        handleLogin(); // Call login function
+        e.preventDefault();
+        setError(''); // Clear previous errors
+        handleLogin();
     };
 
     const handleLogin = () => {
         setLoading(true);
-        
+        setError('');
+
         const options = {
             method: "POST",
             headers: {
@@ -37,23 +38,32 @@ const Login = () => {
             })
         };
 
-        fetch('http://127.0.0.1:5000/token', options)
-            .then(resp => {
-                if (resp.status === 200) return resp.json();
-                else throw new Error("Invalid Username or Password");
+        fetch('http://127.0.0.1:5000/testtoken', options)
+            .then(async (resp) => {
+                const text = await resp.text();
+                
+                try {
+                    const data = text ? JSON.parse(text) : {};
+                    
+                    if (resp.ok) {
+                        return data;
+                    } else {
+                        throw new Error(data.msg || "Invalid credentials");
+                    }
+                } catch (e) {
+                    throw new Error(text || "Login failed");
+                }
             })
             .then(data => {
-                // Handle successful login data here
-                console.log("Token", data);
                 if (data && data.access_token) {
                     sessionStorage.setItem("token", data.access_token);
                     setToken(data.access_token);
-                    // Redirect after successful login
-                    navigate("/dashboard");
+                    navigate("/dashboardadmin");
                 }
             })
             .catch(error => {
-                console.log("There was an error", error);
+                console.error("Login error:", error);
+                setError(error.message);
                 alert(error.message);
             })
             .finally(() => {
@@ -66,6 +76,7 @@ const Login = () => {
         setToken('');
         setEmail('');
         setPassword('');
+
     };
 
     return (
@@ -76,14 +87,17 @@ const Login = () => {
                     <p>Sign in to access your account</p>
                 </div>
                 
-                {token && token !== "" && token !== undefined ? (
+                {token ? (
                     <div className="logged-in-state">
-                       <button onClick={handleLogout} className="logout-button">
+                        <p>You are logged in!</p>
+                        <button onClick={handleLogout} className="logout-button">
                             Logout
-                       </button>
+                        </button>
                     </div>
                 ) : (
                     <form onSubmit={handleSubmit} className="login-form">
+                        {error && <div className="error-message">{error}</div>}
+                        
                         <div className="form-group">
                             <label htmlFor="email">Email Address</label>
                             <input
@@ -91,7 +105,7 @@ const Login = () => {
                                 id="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder="Enter your email"
+                                placeholder="Enter you email"
                                 required
                                 disabled={loading}
                             />
@@ -99,25 +113,15 @@ const Login = () => {
 
                         <div className="form-group">
                             <label htmlFor="password">Password</label>
-                            <div className="password-input-container">
-                                <input
-                                    type="password"
-                                    id="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="Enter your password"
-                                    required
-                                    disabled={loading}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="form-options">
-                            <label className="checkbox-container">
-                                <input type="checkbox" disabled={loading} />
-                                <span className="checkmark"></span>
-                                Remember me
-                            </label>
+                            <input
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Enter your password"
+                                required
+                                disabled={loading}
+                            />
                         </div>
 
                         <button 
@@ -129,13 +133,9 @@ const Login = () => {
                         </button>
                     </form>
                 )}
-
-                <div className="login-footer">
-                    <p>Don't have an account? <a href="register">SignUp</a></p>
-                </div>
             </div>
         </div>
     );
 };
 
-export default Login;
+export default AdminLogin;
