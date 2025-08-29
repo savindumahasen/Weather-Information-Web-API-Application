@@ -12,17 +12,13 @@ const Home = () => {
         navigate('/register');
     };
     const handleGetAdmin = ()=> {
-        navigate('/admin');
+        navigate('/testuser');
 
-    };
-
-    const handleLearnMore = () => {
-        navigate('/about');
     };
 
     return (
         <div className="main-section">
-            {/* Hero section */}
+            {/* First section */}
             <section className="first-section">
                 <div className="first-content">
                     <h1 className="first-heading">

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './dashboard.css';
 
-const Dashboardadmin = () => {
+const Testdashboard = () => {
     const [weatherData, setWeatherData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -20,7 +20,7 @@ const Dashboardadmin = () => {
             
             const token = sessionStorage.getItem('token');
             if (!token) {
-                navigate('/login');
+                navigate('/testuser');
                 return;
             }
 
@@ -33,7 +33,7 @@ const Dashboardadmin = () => {
             
             if (response.status === 401) {
                 sessionStorage.removeItem('token');
-                navigate('/login');
+                navigate('/testuser');
                 return;
             }
 
@@ -42,7 +42,18 @@ const Dashboardadmin = () => {
             }
             
             const data = await response.json();
-            setWeatherData(data);
+            
+            // Check if data is an array and remove duplicates
+            if (Array.isArray(data)) {
+                // Remove duplicates by city id
+                const uniqueData = data.filter((city, index, self) => 
+                    index === self.findIndex((c) => c.id === city.id)
+                );
+                setWeatherData(uniqueData);
+            } else {
+                // If it's a single object, wrap it in an array
+                setWeatherData([data]);
+            }
         } catch (err) {
             setError(err.message);
         } finally {
@@ -52,7 +63,7 @@ const Dashboardadmin = () => {
 
     const handleLogout = () => {
         sessionStorage.removeItem('token');
-        navigate('/admin');
+        navigate('/testuser');
     };
 
     const getWeatherIcon = (iconCode) => {
@@ -63,6 +74,7 @@ const Dashboardadmin = () => {
         return (
             <div className="dashboard-loading">
                 <div className="loading-spinner">
+                    Loading...
                 </div>
             </div>
         );
@@ -88,7 +100,8 @@ const Dashboardadmin = () => {
                     <p>No weather data available</p>
                 </div>
             )}
-             <div className="weather-grid">
+
+            <div className="weather-grid">
                 {weatherData.map((city) => (
                     <div key={city.id} className="weather-card">
                         <div className="card-header">
@@ -108,6 +121,7 @@ const Dashboardadmin = () => {
                                 {city.weather[0].description}
                             </div>
                         </div>
+                        
                     </div>
                 ))}
             </div>
@@ -115,4 +129,4 @@ const Dashboardadmin = () => {
     );
 };
 
-export default Dashboardadmin;
+export default Testdashboard;

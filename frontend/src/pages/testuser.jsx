@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import './admin.css';
+import './testuser.css';
 
-const AdminLogin = () => {
+const TestUser = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
@@ -58,7 +58,7 @@ const AdminLogin = () => {
                 if (data && data.access_token) {
                     sessionStorage.setItem("token", data.access_token);
                     setToken(data.access_token);
-                    navigate("/dashboardadmin");
+                    navigate("/testuserdashboard");
                 }
             })
             .catch(error => {
@@ -138,4 +138,4 @@ const AdminLogin = () => {
     );
 };
 
-export default AdminLogin;
+export default TestUser;
