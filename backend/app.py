@@ -8,10 +8,18 @@ from dotenv import load_dotenv
 from model import User, db
 import json
 import requests
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import JWTManager
 
 
 app=Flask(__name__)
 app.config.from_object(ApplicationConfig)
+
+# Setup the Flask-JWT-Extended extension
+app.config["JWT_SECRET_KEY"] = os.getenv('JWT_SECRET_KEY')
+jwt = JWTManager(app)
 
 bcrypt=Bcrypt(app)
 ## initialize the application
@@ -59,6 +67,17 @@ def  extractCityCode():
     return cityCodesArray
 
 
+@app.route("/token",methods=["POST"] )
+def create_token():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    if email != "savinduruhunuhewa@gmail.com" or password != "test":
+        return jsonify({"msg": "Bad username or password"}), 401
+
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token)
+
+
 @app.route("/register", methods=["POST"])
 def user_registration():
     email=request.json["email"]
@@ -77,6 +96,17 @@ def user_registration():
         "id":new_user.id,
         "email":new_user.email
     })
+
+@app.route("/login", methods=["POST"])
+def login():
+    username = request.json.get("username", None)
+    password = request.json.get("password", None)
+    if username != "test" or password != "test":
+        return jsonify({"msg": "Bad username or password"}), 401
+
+    access_token = create_access_token(identity=username)
+    return jsonify(access_token=access_token)
+
 
 ## define the route
 @app.route("/weather", methods=["GET"])
