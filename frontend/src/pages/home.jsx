@@ -49,7 +49,7 @@ const Home = () => {
                         </button>
                     </div>
                 </div>
-                
+                 {/* Features section */}
                 <div className="second-section">
                     <div className="weather-card">
                         <div className="card-header">
