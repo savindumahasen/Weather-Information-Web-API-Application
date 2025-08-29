@@ -1,0 +1,209 @@
+/* src/pages/Home.css */
+.main-section{
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.first-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 80px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.first-content {
+    flex: 1;
+    padding-right: 40px;
+}
+
+.first-heading {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.brand {
+    color: #ffd700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.first-text {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.button-group {
+    display: flex;
+    gap: 20px;
+}
+
+.main-btn, .secondary-btn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.main-btn {
+    background: #ff6b6b;
+    color: white;
+}
+
+.main-btn:hover {
+    background: #ff5252;
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.secondary-btn:hover {
+    background: white;
+    color: #667eea;
+}
+
+.arrow {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.weather-preview {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.weather-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    min-width: 200px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.city {
+    font-weight: 600;
+}
+
+.temp {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.weather-icon {
+    font-size: 4rem;
+    margin: 20px 0;
+}
+
+.weather-desc {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.features-section {
+    padding: 80px 40px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+    font-weight: 600;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.feature-box:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.feature-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.feature-text {
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.home-footer {
+    text-align: center;
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.1);
+    margin-top: 60px;
+}
+
+.home-footer p {
+    margin: 10px 0;
+    opacity: 0.8;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 20px;
+    }
+    
+    .hero-content {
+        padding-right: 0;
+        margin-bottom: 40px;
+    }
+    
+    .main-heading {
+        font-size: 2.2rem;
+    }
+    
+    .button-group {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}

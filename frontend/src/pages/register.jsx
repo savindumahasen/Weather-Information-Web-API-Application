@@ -10,6 +10,7 @@ const Register = () => {
         password: '',
         confirmPassword: ''
     });
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -21,10 +22,58 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Registration data:', formData);
-        // Here you would typically send data to your backend
-        alert('Registration would be processed here');
-        navigate('/login'); // Redirect to login after registration
+        
+        // Basic validation
+        if (formData.password !== formData.confirmPassword) {
+            alert("Passwords don't match!");
+            return;
+        }
+
+        if (formData.password.length < 6) {
+            alert("Password must be at least 6 characters long!");
+            return;
+        }
+
+        handleRegister();
+    };
+
+    const handleRegister = () => {
+        setLoading(true);
+        
+        const options = {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: formData.name,
+                email: formData.email,
+                password: formData.password
+            })
+        };
+
+        fetch('http://127.0.0.1:5000/register', options)
+            .then(resp => {
+                if (resp.status === 200) {
+                    return resp.json();
+                } else if (resp.status === 409) {
+                    throw new Error("User already exists");
+                } else {
+                    throw new Error("Registration failed");
+                }
+            })
+            .then(data => {
+                console.log("Registration successful", data);
+                alert("Registration successful! Please login.");
+                navigate('/login');
+            })
+            .catch(error => {
+                console.log("There was an error", error);
+                alert(error.message);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     };
 
     return (
@@ -46,6 +95,7 @@ const Register = () => {
                             onChange={handleChange}
                             placeholder="Enter your full name"
                             required
+                            disabled={loading}
                         />
                     </div>
 
@@ -59,6 +109,7 @@ const Register = () => {
                             onChange={handleChange}
                             placeholder="Enter your email"
                             required
+                            disabled={loading}
                         />
                     </div>
 
@@ -72,6 +123,8 @@ const Register = () => {
                             onChange={handleChange}
                             placeholder="Create a password"
                             required
+                            disabled={loading}
+                            minLength="6"
                         />
                     </div>
 
@@ -85,11 +138,16 @@ const Register = () => {
                             onChange={handleChange}
                             placeholder="Confirm your password"
                             required
+                            disabled={loading}
                         />
                     </div>
 
-                    <button type="submit" className="register-button">
-                        Create Account
+                    <button 
+                        type="submit" 
+                        className="register-button"
+                        disabled={loading}
+                    >
+                        {loading ? 'Creating Account...' : 'Create Account'}
                     </button>
                 </form>
 
