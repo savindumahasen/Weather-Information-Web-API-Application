@@ -12,10 +12,15 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
+
 
 
 app=Flask(__name__)
 app.config.from_object(ApplicationConfig)
+
+# OR for more specific configuration:
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 # Setup the Flask-JWT-Extended extension
 app.config["JWT_SECRET_KEY"] = os.getenv('JWT_SECRET_KEY')
@@ -71,8 +76,15 @@ def  extractCityCode():
 def create_token():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
-    if email != "savinduruhunuhewa@gmail.com" or password != "test":
-        return jsonify({"msg": "Bad username or password"}), 401
+    # Check if user exists in database and credentials match
+    user = User.query.filter_by(email=email).first()
+    
+    if not user:
+        return jsonify({"msg": "User cannot be found"}), 401
+    
+    # Check if password matches (assuming plain text for now - NOT recommended for production)
+    if user.password != password:
+        return jsonify({"msg": "Invalid credentials"}), 401
 
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token)
@@ -88,8 +100,8 @@ def user_registration():
 
     if user_exists:
         return jsonify({"error":"User is already exist"}), 409
-    hashed_password=bcrypt.generate_password_hash(password)
-    new_user= User(email=email, password=hashed_password)
+    #hashed_password=bcrypt.generate_password_hash(password)
+    new_user= User(email=email, password=password)
     db.session.add(new_user)
     db.session.commit()
     return jsonify({
@@ -97,15 +109,21 @@ def user_registration():
         "email":new_user.email
     })
 
-@app.route("/login", methods=["POST"])
-def login():
-    username = request.json.get("username", None)
-    password = request.json.get("password", None)
-    if username != "test" or password != "test":
-        return jsonify({"msg": "Bad username or password"}), 401
 
-    access_token = create_access_token(identity=username)
-    return jsonify(access_token=access_token)
+@app.route("/testtoken", methods=["POST"])
+def testers_login():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    # Check if BOTH email and password are correct
+    test_email="careers@fidenz.com"
+    test_password= "Pass#fidenz"
+    if email !=test_email and password!=test_password:
+        return jsonify({"msg": "Invalid username or password"}), 401
+      
+    else:
+        access_token = create_access_token(identity=email)
+        return jsonify(access_token=access_token)
+     
 
 
 ## define the route
