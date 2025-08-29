@@ -2,6 +2,7 @@
 import os
 from flask import Flask,jsonify
 from flask_caching  import Cache
+from config import ApplicationConfig
 from dotenv import load_dotenv
 from model import User, db
 import json
@@ -9,10 +10,16 @@ import requests
 
 
 app=Flask(__name__)
+app.config.from_object(ApplicationConfig)
 
 ## initialize the application
 db.init_app(app)
-db.create_all()
+
+
+
+with app.app_context():
+    db.create_all()
+
 
 ## load the variables from .env file  into environment variables
 load_dotenv()
