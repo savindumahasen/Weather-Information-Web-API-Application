@@ -5,13 +5,36 @@ import './login.css';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('Login attempted with:', { email, password });
-        // UI only - no actual login logic
-        alert('This is a UI demo. Login functionality would be implemented here.');
+        e.preventDefault(); // Prevent form refresh
+        handleLogin(); // Call login function
+    };
+
+    const handleLogin = () => {
+        const options = {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "email": email,
+                "password": password
+            })
+        };
+
+        fetch('http://127.0.0.1:5000/token', options)
+            .then(resp => {
+                if (resp.status === 200) return resp.json();
+                else alert("There has been some error");
+            })
+            .then(data => {
+                // Handle successful login data here
+                console.log("Login successful:", data);
+            })
+            .catch(error => {
+                console.log("There was an error", error);
+            });
     };
 
     return (
@@ -39,20 +62,13 @@ const Login = () => {
                         <label htmlFor="password">Password</label>
                         <div className="password-input-container">
                             <input
-                                type={showPassword ? "text" : "password"}
+                                type="password"
                                 id="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 placeholder="Enter your password"
                                 required
                             />
-                            <button
-                                type="button"
-                                className="password-toggle"
-                                onClick={() => setShowPassword(!showPassword)}
-                            >
-                                {showPassword ? "🙈" : "👁️"}
-                            </button>
                         </div>
                     </div>
 
