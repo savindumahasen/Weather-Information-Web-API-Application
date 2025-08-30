@@ -89,7 +89,6 @@ const TestUser = () => {
                 
                 {token ? (
                     <div className="logged-in-state">
-                        <p>You are logged in!</p>
                         <button onClick={handleLogout} className="logout-button">
                             Logout
                         </button>

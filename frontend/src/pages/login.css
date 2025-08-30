@@ -8,6 +8,10 @@
     padding: 20px;
 }
 
+.logout-button{
+    margin-left: 170px;
+}
+
 .login-card {
     background: white;
     padding: 2rem;
