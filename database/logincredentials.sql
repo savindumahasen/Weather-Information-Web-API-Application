@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 30, 2025 at 12:02 PM
+-- Generation Time: Aug 30, 2025 at 12:38 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -56,13 +56,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `password`) VALUES
-('1246f0f2bba14f56889c7f804323d5e3', 'sandun@gmail.com', '$2b$12$jq28EUexyC9jjoQh5LtM0uyN0esQy3kRM56mDUo8GZ3sziYV1okGy'),
-('5d89d3a310da45fb9a6dea36adedefd5', '123@gmail.com', '$2b$12$KqH.DKAgv3XkUxeTT1O4QuW.whsJ8f/KMXEc9QMTbF4gVIV0Lsxh2'),
+('0d70cbeae7d748f0b984ea021e36a549', 'gajindu@gmail.com', 'gajindu@123'),
 ('7c96a07c9e4e4f5c967688ee05067af6', 'sirisenaruhunuhewa@gmail.com', 'sirisena@123'),
-('967b36d1afbf46a4b9b835fe6d135703', 'wewee@gmail.com', '$2b$12$0fbeaQRKXJ6R1R1acOniP.q4SdEeitj6WWBM94MQP/7JvhiDu5blK'),
-('a3a71ed2c15641eca9a92a1b689ec267', 'kamal@gmail.com', 'kamal@123'),
-('d437f2044864496382bc3399e5cd5b02', 'savinduruhunuhewa@gmail.com', '$2b$12$xEEzLMkLJdF53C8cl8OHCuv5y5nldumKcBRhK/qOoRvsjUq9CXfB6'),
-('e8e62844fcca47cea6dcdf38b72e8bab', 'kushanpahasaradarmawamsha@gmail.com', '$2b$12$bHOatLk39x1oAd0OF41Oc.zXB6emIvicBBcs9LQ8FxtcEkTfflYBq');
+('a3a71ed2c15641eca9a92a1b689ec267', 'kamal@gmail.com', 'kamal@123');
 
 --
 -- Indexes for dumped tables
