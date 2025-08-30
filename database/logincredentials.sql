@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 30, 2025 at 12:38 PM
+-- Generation Time: Aug 30, 2025 at 12:45 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -20,24 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `logincredentials`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `testcredentials`
---
-
-CREATE TABLE `testcredentials` (
-  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `password` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `testcredentials`
---
-
-INSERT INTO `testcredentials` (`username`, `password`) VALUES
-('careers@fidenz.com ', 'Pass#fidenz ');
 
 -- --------------------------------------------------------
 
