@@ -74,6 +74,7 @@ cityCodesArray = []
 
 ## create the function to  extract the city codes
 def  extractCityCode():
+    ## Get the absolute  path of file
     current_dir = os.path.dirname(os.path.abspath(__file__))
     json_path = os.path.join(current_dir, 'cities.json')
     with open(json_path,'r') as file:
