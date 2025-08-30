@@ -74,7 +74,9 @@ cityCodesArray = []
 
 ## create the function to  extract the city codes
 def  extractCityCode():
-    with open('C:\\Users\\THIS PC\\Desktop\\fidenztechnologies(Assignment)\\Weather-Information-Web-API-Application\\backend\\cities.json','r') as file:
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    json_path = os.path.join(current_dir, 'cities.json')
+    with open(json_path,'r') as file:
         data=json.load(file)
         for city_ids in data['List']:
             city_codes=city_ids['CityCode']
