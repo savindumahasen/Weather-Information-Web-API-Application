@@ -6,7 +6,7 @@ The project is mainly created for users to  view the  current weather informatio
 ## Instructions for setup 
  
  1) First of all clone this project and  open with any particular IDE (most preferred VSCode)
- 2) Open the new terminal
+ 2) Open the new terminal inside the IDE
  3) And then create the virtual envionment  by using  python -m venv venv  in the terminal 
  4) After creating the virtual environment called venv,  activate typing  the .\venv\Scripts\activate in the terminal
  5) Then, install the requirments file  by typing  pip install -r requirements.txt in the terminal
