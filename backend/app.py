@@ -2,7 +2,6 @@
 import os
 from flask import Flask,jsonify,request, abort
 from flask_caching  import Cache
-from flask_bcrypt import Bcrypt
 from config import ApplicationConfig
 from dotenv import load_dotenv
 from model import User,db
@@ -40,7 +39,6 @@ CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 app.config["JWT_SECRET_KEY"] = os.getenv('JWT_SECRET_KEY')
 jwt = JWTManager(app)
 
-bcrypt=Bcrypt(app)
 ## initialize the application
 db.init_app(app)
 
@@ -85,7 +83,7 @@ def  extractCityCode():
     print(cityCodesArray)
     return cityCodesArray
 
-
+## create the /token route 
 @app.route("/token",methods=["POST"] )
 def create_token():
     email = request.json.get("email", None)
