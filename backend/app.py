@@ -5,18 +5,32 @@ from flask_caching  import Cache
 from flask_bcrypt import Bcrypt
 from config import ApplicationConfig
 from dotenv import load_dotenv
-from model import User, db
+from model import User,db
 import json
+import random
+import string
 import requests
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
+from flask_mail import Mail, Message
 from flask_cors import CORS
 
 
 
 app=Flask(__name__)
+
+## setup the flask mail server
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USERNAME'] = 'hellodynamicbiz@gmail.com'
+app.config['MAIL_PASSWORD'] = 'teogsoqswvqotfcc'
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+mail = Mail(app)
+
+
 app.config.from_object(ApplicationConfig)
 
 # OR for more specific configuration:
@@ -76,6 +90,7 @@ def  extractCityCode():
 def create_token():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
+    mfa_token = request.json.get("mfa_token", None)
     # Check if user exists in database and credentials match
     user = User.query.filter_by(email=email).first()
     
@@ -83,13 +98,22 @@ def create_token():
         return jsonify({"msg": "User cannot be found"}), 401
     
     # Check if password matches (assuming plain text for now - NOT recommended for production)
-    if user.password != password:
+    if user.password != password and mfa_token!=mfa_token:
         return jsonify({"msg": "Invalid credentials"}), 401
+    else:
+         mfa_token =  ''.join(random.choices(string.digits, k=6))
+         subject = "MFA Token"
+         message = mfa_token
+         msg = Message(subject, sender='hellodynamicbiz@gmail.com', recipients=['savinduruhunuhewa@gmail.com','kanishka.d@fidenz.com','srimal.w@fidenz.com' ])
+         msg.body = message
+         mail.send(msg)
+         access_token = create_access_token(identity=email)
+         return jsonify(access_token=access_token)
 
-    access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token)
 
 
+
+## define the  register route
 @app.route("/register", methods=["POST"])
 def user_registration():
     email=request.json["email"]
@@ -110,7 +134,7 @@ def user_registration():
     })
 
 
-@app.route("/testtoken", methods=["POST"])
+@app.route("/testusertoken", methods=["POST"])
 def testers_login():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
@@ -126,7 +150,7 @@ def testers_login():
      
 
 
-## define the route
+## define the  weather route
 @app.route("/weather", methods=["GET"])
 ## implement the caching
 @cache.cached(timeout=300)
