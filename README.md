@@ -11,5 +11,5 @@ The project is mainly created for users to  view the  current weather informatio
  4) Install the requirments file  by typing  pip install -r requirements.txt
  5) Aftert open the cmd  and  go to the backend folder. Then type python app.py command for running the backend
  6) And then open the another  cmd and   go to the frontend folder. And type  npm install
- 7) Then  install the librar  by typing  npm imstall react-router-dom
+ 7) Then  install the library  by typing  npm install react-router-dom in cmd
  8) Finally, type the command npm start to  run the frontend
