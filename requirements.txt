@@ -3,6 +3,7 @@ flask
 requests
 flask-sqlalchemy
 Flask-Caching
+Flask-Mail
 flask-jwt-extended
 pymysql
 flask-cors
