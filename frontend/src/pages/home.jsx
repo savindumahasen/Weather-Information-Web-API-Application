@@ -69,7 +69,7 @@ const Home = () => {
                    <div className="feature-box">
                      <div className="feature-icon">☀️</div>
                      <h3 className="feature-title">Real Time Weather</h3>
-                     <p className="feature-text">Get  the live weather information from  colombo, tokyo</p>
+                     <p className="feature-text">Get  the live weather information</p>
                     </div>
                  
                 </div>
