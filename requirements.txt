@@ -2,5 +2,7 @@ python-dotenv
 flask
 requests
 flask-sqlalchemy
-flask-bcrypt
 Flask-Caching
+flask-jwt-extended
+pymysql
+flask-cors
