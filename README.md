@@ -3,7 +3,7 @@ The project is mainly created for users to  view the  current weather informatio
 
 
 
-## instructions for setup 
+## Instructions for setup 
  
  1) First of all clone this project open with any particular IDE (most preferred VSCode)
  2) And then create the virtual envionment  by using  python -m venv  venv
