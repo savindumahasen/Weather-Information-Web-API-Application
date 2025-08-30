@@ -9,7 +9,7 @@ const Home = () => {
 
 
     const handleGetUser = () => {
-        navigate('/register');
+        navigate('/signup');
     };
     const handleGetAdmin = ()=> {
         navigate('/testuser');
@@ -44,7 +44,7 @@ const Home = () => {
                             onMouseEnter={() => setIsHovered(true)}
                             onMouseLeave={() => setIsHovered(false)}
                         >
-                            Admin Login
+                            Test User Signup
                             {isHovered && <span className="arrow"> →</span>}
                         </button>
                     </div>

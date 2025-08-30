@@ -49,7 +49,7 @@ const Login = () => {
                     sessionStorage.setItem("token", data.access_token);
                     setToken(data.access_token);
                     // Redirect after successful login
-                    navigate("/dashboard");
+                    navigate("/loginverification");
                 }
             })
             .catch(error => {
@@ -131,7 +131,7 @@ const Login = () => {
                 )}
 
                 <div className="login-footer">
-                    <p>Don't have an account? <a href="register">SignUp</a></p>
+                    <p>Don't have an account? <a href="signup">SignUp</a></p>
                 </div>
             </div>
         </div>

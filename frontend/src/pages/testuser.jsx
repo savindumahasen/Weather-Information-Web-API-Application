@@ -38,7 +38,7 @@ const TestUser = () => {
             })
         };
 
-        fetch('http://127.0.0.1:5000/testtoken', options)
+        fetch('http://127.0.0.1:5000/testusertoken', options)
             .then(async (resp) => {
                 const text = await resp.text();
                 

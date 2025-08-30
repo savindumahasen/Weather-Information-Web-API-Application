@@ -1,9 +1,9 @@
 // src/pages/Register.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './register.css';
+import './signup.css';
 
-const Register = () => {
+const Signup = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -166,4 +166,4 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default Signup;

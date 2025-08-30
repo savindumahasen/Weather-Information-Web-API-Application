@@ -1,4 +1,4 @@
-/* src/styles/Register.css */
+
 .register-container {
     min-height: 100vh;
     display: flex;
@@ -100,7 +100,7 @@
 .login-link:hover {
     text-decoration: underline;
 }
-
+/* media queries*/
 @media (max-width: 480px) {
     .register-card {
         padding: 1.5rem;

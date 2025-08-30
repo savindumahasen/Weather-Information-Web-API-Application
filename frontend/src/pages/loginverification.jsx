@@ -1,26 +1,25 @@
-
 // src/components/LoginVerification.jsx
 import React, { useState } from 'react';
 import './loginverification.css';
+import { useNavigate } from "react-router-dom";
 
 const LoginVerification = () => {
     const [mfaCode, setMfaCode] = useState('');
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleVerification = (e) => {
         e.preventDefault();
         setLoading(true);
         
-        // Simulate verification process
+        // verification process
         setTimeout(() => {
             setLoading(false);
-            alert('Verification would happen here');
+            alert('Verification is successful');
+            navigate('/dashboard')
         }, 1000);
     };
 
-    const handleResendCode = () => {
-        alert('New code would be sent here');
-    };
 
     return (
         <div className="verification-container">
@@ -53,18 +52,6 @@ const LoginVerification = () => {
                     >
                         {loading ? 'Verifying...' : 'Verify Code'}
                     </button>
-
-                    <div className="verification-footer">
-                        <p>Didn't receive the code?</p>
-                        <button 
-                            type="button" 
-                            onClick={handleResendCode}
-                            disabled={loading}
-                            className="resend-button"
-                        >
-                            Resend Code
-                        </button>
-                    </div>
                 </form>
             </div>
         </div>

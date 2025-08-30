@@ -1,4 +1,3 @@
-// src/pages/Dashboard.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './dashboard.css';
@@ -115,7 +114,7 @@ const Testdashboard = () => {
                                 className="weather-icon"
                             />
                             <div className="temperature">
-                                {Math.round(city.main.temp)}°C
+                                {(city.main.temp)}°C
                             </div>
                             <div className="weather-description">
                                 {city.weather[0].description}
