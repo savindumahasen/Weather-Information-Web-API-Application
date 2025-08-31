@@ -16,8 +16,6 @@ from flask_jwt_extended import JWTManager
 from flask_mail import Mail, Message
 from flask_cors import CORS
 
-
-
 app=Flask(__name__)
 
 ## setup the flask mail server
@@ -32,18 +30,14 @@ mail = Mail(app)
 
 app.config.from_object(ApplicationConfig)
 
-# OR for more specific configuration:
+# configure with frontend
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
-
-# Setup the Flask-JWT-Extended extension
-app.config["JWT_SECRET_KEY"] = os.getenv('JWT_SECRET_KEY')
-jwt = JWTManager(app)
 
 ## initialize the application
 db.init_app(app)
 
 
-
+## create the all database tables
 with app.app_context():
     db.create_all()
 
@@ -62,6 +56,10 @@ cache=Cache(app)
 
 ## set the APi key into variable
 weather_API_Key = os.getenv("weatherAPIKey")
+
+# Setup the Flask-JWT-Extended extension
+app.config["JWT_SECRET_KEY"] = os.getenv('JWT_SECRET_KEY')
+jwt = JWTManager(app)
 
 ## check whether vairable has value or not
 if weather_API_Key:
@@ -86,7 +84,7 @@ def  extractCityCode():
     print(cityCodesArray)
     return cityCodesArray
 
-## create the /token route 
+## create the token route 
 @app.route("/token",methods=["POST"] )
 def create_token():
     email = request.json.get("email", None)
@@ -134,7 +132,7 @@ def user_registration():
         "email":new_user.email
     })
 
-
+## define the testusertiken route
 @app.route("/testusertoken", methods=["POST"])
 def testers_login():
     email = request.json.get("email", None)
