@@ -14,4 +14,4 @@ The project is mainly created for users to  view the  current weather informatio
  7) Aftert go to the backend folder by typing  cd/backend command in terminal. Then type python app.py command for running the backend
  8) And then open the another terminal and go to the frontend folder by typing cd/frontend in newly opened terminal. And type  npm install
  9) Then  install the library by typing  npm install react-router-dom in terminal
- 10) Finally, to run the frontend type the command npm start in terminal
+ 10) To run the frontend, type the command npm start in terminal
